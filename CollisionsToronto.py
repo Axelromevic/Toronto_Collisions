@@ -25,8 +25,10 @@ df = pd.read_csv("KSI.csv")
 print(df.head(2))
 
 # EXPLORATORY DATA ANALYSIS (EDA)
-df.describe()
-print("Nulls per column \n", df.isnull().sum())
+print(df.describe())
+
+sort_NULLS = df.isnull().sum()
+print("Nulls per column before encoding \n", sort_NULLS.sort_values(ascending=False))
 
 #CHART Heatmap of nulls
 plt.figure(figsize=(20, 5))
@@ -172,7 +174,6 @@ not_necessary_columns = ['X', 'Y', 'LATITUDE', 'LONGITUDE', 'ObjectId', 'INDEX_'
                          'INJURY', 'NEIGHBOURHOOD_140', 'HOOD_158']
 df.drop(columns=not_necessary_columns, inplace=True)
 
-print("Nulls per column before encoding \n", df.isnull().sum())
 
 
 # Select Numeric & Categorical Features
@@ -282,4 +283,4 @@ print("\nGradientBoosting AUROC:", roc_auc_score(y_test, y_pred_gb))
 cv_scores_gb = cross_val_score(best_gb_model, X_Top, y, cv=3, scoring='accuracy')
 print("\nGradientBoosting Cross Validation Scores:", cv_scores_gb)
 print("\nGradientBoosting Mean Accuracy:", np.mean(cv_scores_gb))
-print("\nGradientBoosting Standard Deviation:", np.std(cv_scores_gb))
+print("\nGradientBoosting Standard Deviation:", np.std(cv_scores_gb))   
